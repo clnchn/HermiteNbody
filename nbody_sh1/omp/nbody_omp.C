@@ -95,6 +95,9 @@
 #include  <cmath>                          // to include sqrt(), etc.
 #include  <cstdlib>                        // for atoi() and atof()
 #include  <unistd.h>                       // for getopt()
+#include <stdio.h>
+#include <omp.h>
+
 using namespace std;
 
 typedef double  real;                      // "real" as a general name for the
