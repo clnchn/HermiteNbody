@@ -148,8 +148,11 @@ int main(int argc, char *argv[])
     bool  x_flag = false;      // if true: extra debugging diagnostics output
 
     if (! read_options(argc, argv, dt_param, dt_dia, dt_out, dt_tot, init_out,
-                       x_flag))
+                       x_flag)){
+        printf("ERROR: halt criterion detected by read_options()\n");
         return 1;                // halt criterion detected by read_options()
+    }
+        
 
     int n;                       // N, number of particles in the N-body system
     cin >> n;
@@ -186,14 +189,14 @@ bool read_options(int argc, char *argv[], real & dt_param, real & dt_dia,
     int c;
     while ((c = getopt(argc, argv, "hd:e:o:t:ix")) != -1)
         switch(c){
-            case 'h': cerr << "usage: " << argv[0]
-                           << " [-h (for help)]"
+            case 'h': cerr << "usage: \n" << argv[0]
+                           << " [-h (for help)]\n"
                            << " [-d step_size_control_parameter]\n"
-                           << "         [-e diagnostics_interval]"
+                           << " [-e diagnostics_interval]\n"
                            << " [-o output_interval]\n"
-                           << "         [-t total_duration]"
+                           << " [-t total_duration]\n"
                            << " [-i (start output at t = 0)]\n"
-                           << "         [-x (extra debugging diagnostics)]"
+                           << " [-x (extra debugging diagnostics)]\n"
                            << endl;
                       return false;         // execution should stop after help
             case 'd': dt_param = atof(optarg);

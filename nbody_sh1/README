@@ -33,15 +33,20 @@ http://www.ams.org/new-in-math/cover/orbits1.html):
   1   0           0            0  -0.932407370  -0.86473146  -0
 
 If you enter these five lines of numbers in a file "figure8.in", you
-can run the nbody code by typing: "nbody_sh1 < figure8.in" .  Snapshots
-will appear by default on the standard output stream once every time unit,
+can run the nbody code by typing: 
+"nbody_sh1 < figure8.in" .  
+Snapshots will appear by default on the standard output stream once every time unit,
 while energy conservation diagnostics will appear on the standard error
 stream.  You can use your favorite plotting package to view the orbits,
 with a more frequent snapshot output.  To accumulate the orbit data,
-you can try "nbody_sh1 -o 0.01 < figure8.in > figure8.out" and plot the
+you can try 
+
+"nbody_sh1 -o 0.01 < figure8.in > figure8.out" and plot the
 data in the second and third column of the file "figure8.out" .  A quick
 way to get those data directly into a file "figure8.plot", say, would be:
-"nbody_sh1 -o 0.01 < figure8.in | awk '{print $2 " " $3}' > figure8.plot" .
+"nbody_sh1 -o 0.01 < figure8.in | awk '{print $2 " " $3}' > figure8.plot".
+
+
 
 If you're feeling adventurous, you can start experimenting further.
 However, if you prefer to have more guidance as to generating initial
