@@ -150,6 +150,11 @@ int main(int argc, char *argv[])
                                //          with an echo of the input snapshot
     bool  x_flag = false;      // if true: extra debugging diagnostics output
 
+    
+    
+    
+    
+    
     if (! read_options(argc, argv, dt_param, dt_dia, dt_out, dt_tot, init_out,
                        x_flag)){
         printf("ERROR: halt criterion detected by read_options()\n");
@@ -302,18 +307,18 @@ void write_diagnostics(const real mass[], const real pos[][NDIM],
     if (init_flag)                       // at first pass, pass the initial
         einit = etot;                    // energy back to the calling function
 
-    cerr << "at time t = " << t << " , after " << nsteps
-         << " steps :\n  E_kin = " << ekin
-         << " , E_pot = " << epot
-         << " , E_tot = " << etot << endl;
-    cerr << "                "
-         << "absolute energy error: E_tot - E_init = "
-         << etot - einit << endl;
-    cerr << "                "
-         << "relative energy error: (E_tot - E_init) / E_init = "
-         << (etot - einit) / einit << endl;
-    cerr <<  "openMP =  "
-         << omp_get_num_threads() << endl;
+    //cerr << "at time t = " << t << " , after " << nsteps
+    //     << " steps :\n  E_kin = " << ekin
+    //     << " , E_pot = " << epot
+    //     << " , E_tot = " << etot << endl;
+    //cerr << "                "
+    //     << "absolute energy error: E_tot - E_init = "
+    //     << etot - einit << endl;
+    //cerr << "                "
+    //     << "relative energy error: (E_tot - E_init) / E_init = "
+    //     << (etot - einit) / einit << endl;
+    //cerr <<  "openMP =  "
+    //     << omp_get_num_threads() << endl;
 
     if (x_flag){
         cerr << "  for debugging purposes, here is the internal data "
@@ -441,6 +446,8 @@ void evolve_step(const real mass[], real pos[][NDIM], real vel[][NDIM],
     
     #pragma omp parallel for num_threads(32)
     for (int i = 0; i < n ; i++)
+        cerr <<  "openMP =  "
+             << omp_get_num_threads() << endl;
         for (int k = 0; k < NDIM ; k++){
           old_pos[i][k] = pos[i][k];
           old_vel[i][k] = vel[i][k];
@@ -471,7 +478,7 @@ void predict_step(real pos[][NDIM], real vel[][NDIM],
                   const real acc[][NDIM], const real jerk[][NDIM],
                   int n, real dt)
 {
-    #pragma omp parallel for num_threads(32)
+    #pragma omp parallel for //num_threads(32)
     for (int i = 0; i < n ; i++){
         for (int k = 0; k < NDIM ; k++){
             pos[i][k] += vel[i][k]*dt + acc[i][k]*dt*dt/2
