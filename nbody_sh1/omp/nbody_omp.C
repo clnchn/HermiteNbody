@@ -445,7 +445,7 @@ void evolve_step(const real mass[], real pos[][NDIM], real vel[][NDIM],
     real (* old_jerk)[NDIM] = new real[n][NDIM];
     
     #pragma omp parallel for num_threads(32)
-    for (int i = 0; i < n ; i++)
+    for (int i = 0; i < n ; i++){
         cerr <<  "openMP =  "
              << omp_get_num_threads() << endl;
         for (int k = 0; k < NDIM ; k++){
@@ -454,6 +454,7 @@ void evolve_step(const real mass[], real pos[][NDIM], real vel[][NDIM],
           old_acc[i][k] = acc[i][k];
           old_jerk[i][k] = jerk[i][k];
         }
+    }
 
     predict_step(pos, vel, acc, jerk, n, dt);
     get_acc_jerk_pot_coll(mass, pos, vel, acc, jerk, n, epot, coll_time);
