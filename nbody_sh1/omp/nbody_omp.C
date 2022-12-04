@@ -312,6 +312,8 @@ void write_diagnostics(const real mass[], const real pos[][NDIM],
     cerr << "                "
          << "relative energy error: (E_tot - E_init) / E_init = "
          << (etot - einit) / einit << endl;
+    cerr <<  "openMP =  "
+        << omp_get_num_threads()
 
     if (x_flag){
         cerr << "  for debugging purposes, here is the internal data "
@@ -391,7 +393,7 @@ void evolve(const real mass[], real pos[][NDIM], real vel[][NDIM],
     real einit;                   // initial total energy of the system
 
     write_diagnostics(mass, pos, vel, acc, jerk, n, t, epot, nsteps, einit,
-                      false, x_flag); //was true
+                      true, x_flag);
     if (init_out)                                    // flag for initial output
         put_snapshot(mass, pos, vel, n, t);
 
