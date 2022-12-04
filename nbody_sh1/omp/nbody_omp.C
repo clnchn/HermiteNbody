@@ -313,7 +313,7 @@ void write_diagnostics(const real mass[], const real pos[][NDIM],
          << "relative energy error: (E_tot - E_init) / E_init = "
          << (etot - einit) / einit << endl;
     cerr <<  "openMP =  "
-        << omp_get_num_threads()
+         << omp_get_num_threads() << endl; 
 
     if (x_flag){
         cerr << "  for debugging purposes, here is the internal data "
