@@ -470,12 +470,13 @@ void predict_step(real pos[][NDIM], real vel[][NDIM],
                   int n, real dt)
 {
     #pragma omp parallel for
-    for (int i = 0; i < n ; i++)
+    for (int i = 0; i < n ; i++){
         for (int k = 0; k < NDIM ; k++){
             pos[i][k] += vel[i][k]*dt + acc[i][k]*dt*dt/2
                                       + jerk[i][k]*dt*dt*dt/6;
             vel[i][k] += acc[i][k]*dt + jerk[i][k]*dt*dt/2;
         }
+    }
 }
 
 /*-----------------------------------------------------------------------------
@@ -492,7 +493,7 @@ void correct_step(real pos[][NDIM], real vel[][NDIM],
                   const real old_acc[][NDIM], const real old_jerk[][NDIM],
                   int n, real dt)
 {
-    #pragma omp parallel for
+    //#pragma omp parallel for
     for (int i = 0; i < n ; i++)
         for (int k = 0; k < NDIM ; k++){
             vel[i][k] = old_vel[i][k] + (old_acc[i][k] + acc[i][k])*dt/2
