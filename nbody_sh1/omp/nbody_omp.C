@@ -391,7 +391,7 @@ void evolve(const real mass[], real pos[][NDIM], real vel[][NDIM],
     real einit;                   // initial total energy of the system
 
     write_diagnostics(mass, pos, vel, acc, jerk, n, t, epot, nsteps, einit,
-                      true, x_flag);
+                      false, x_flag); //was true
     if (init_out)                                    // flag for initial output
         put_snapshot(mass, pos, vel, n, t);
 
