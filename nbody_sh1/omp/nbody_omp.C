@@ -313,7 +313,7 @@ void write_diagnostics(const real mass[], const real pos[][NDIM],
          << "relative energy error: (E_tot - E_init) / E_init = "
          << (etot - einit) / einit << endl;
     cerr <<  "openMP =  "
-         << omp_get_num_threads() << endl; 
+         << omp_get_num_threads() << endl;
 
     if (x_flag){
         cerr << "  for debugging purposes, here is the internal data "
@@ -439,7 +439,7 @@ void evolve_step(const real mass[], real pos[][NDIM], real vel[][NDIM],
     real (* old_acc)[NDIM] = new real[n][NDIM];
     real (* old_jerk)[NDIM] = new real[n][NDIM];
     
-    #pragma omp parallel for
+    #pragma omp parallel for num_threads(32)
     for (int i = 0; i < n ; i++)
         for (int k = 0; k < NDIM ; k++){
           old_pos[i][k] = pos[i][k];
@@ -471,7 +471,7 @@ void predict_step(real pos[][NDIM], real vel[][NDIM],
                   const real acc[][NDIM], const real jerk[][NDIM],
                   int n, real dt)
 {
-    #pragma omp parallel for
+    #pragma omp parallel for num_threads(32)
     for (int i = 0; i < n ; i++){
         for (int k = 0; k < NDIM ; k++){
             pos[i][k] += vel[i][k]*dt + acc[i][k]*dt*dt/2
@@ -548,7 +548,7 @@ void get_acc_jerk_pot_coll(const real mass[], const real pos[][NDIM],
                            real jerk[][NDIM], int n, real & epot,
                            real & coll_time)
 {
-    #pragma omp parallel for
+    #pragma omp parallel for num_threads(32)
     for (int i = 0; i < n ; i++)
         for (int k = 0; k < NDIM ; k++)
             acc[i][k] = jerk[i][k] = 0;
