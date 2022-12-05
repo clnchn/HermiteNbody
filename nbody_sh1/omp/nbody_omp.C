@@ -116,7 +116,7 @@ void evolve_step(const real mass[], real pos[][NDIM], real vel[][NDIM],
                  real dt, real & epot, real & coll_time);
 void get_acc_jerk_pot_coll(const real mass[], const real pos[][NDIM],
                            const real vel[][NDIM], real acc[][NDIM],
-                           real jerk[][NDIM], int bodyID, real & epot,
+                           real jerk[][NDIM], int n, int bodyID, real & epot,
                            real & coll_time);
 void get_snapshot(real mass[], real pos[][NDIM], real vel[][NDIM], int n);
 void predict_step(real pos[][NDIM], real vel[][NDIM], 
@@ -385,7 +385,7 @@ void evolve(const real mass[], real pos[][NDIM], real vel[][NDIM],
 
     //celene: convert to bodyID
     for(int i = 0; i < n; i++){
-        get_acc_jerk_pot_coll(mass, pos, vel, acc, jerk, i, epot, coll_time);
+        get_acc_jerk_pot_coll(mass, pos, vel, acc, jerk, n, i, epot, coll_time);
     }
 
 
@@ -452,7 +452,7 @@ void evolve_step(const real mass[], real pos[][NDIM], real vel[][NDIM],
     #pragma omp parallel for //num_threads(32)
     for(int i = 0; i < n; i++){
         predict_step(pos, vel, acc, jerk, i, dt);
-        get_acc_jerk_pot_coll(mass, pos, vel, acc, jerk, i, epot, coll_time);
+        get_acc_jerk_pot_coll(mass, pos, vel, acc, jerk, n, i, epot, coll_time);
         correct_step(pos, vel, acc, jerk, old_pos, old_vel, old_acc, old_jerk, i, dt);
     }
 
@@ -544,7 +544,7 @@ void correct_step(real pos[][NDIM], real vel[][NDIM],
 
 void get_acc_jerk_pot_coll(const real mass[], const real pos[][NDIM],
                            const real vel[][NDIM], real acc[][NDIM],
-                           real jerk[][NDIM], int bodyID, real & epot,
+                           real jerk[][NDIM], int n, int bodyID, real & epot,
                            real & coll_time)
 {
 
