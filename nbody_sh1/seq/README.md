@@ -1,11 +1,9 @@
 To Run Sequential Program: 
 '''sh
 g++ -o nbody_seq nbody_seq.C
-time ./nbody_seq -t 10 < figure8.in > seq_10.out
-time ./nbody_seq -t 1000 < figure8.in > seq_1000.out
-time ./nbody_seq -t 100000 < figure8.in > seq_100000.out
-
-time ./nbody_seq -t 1000000 < figure8.in > seq_1000000.out
+time ./nbody_seq -t 10 < sample_input.in > seq_10.out
+time ./nbody_seq -t 1000 < sample_input.in > seq_1000.out
+time ./nbody_seq -t 1000000 < sample_input.in > seq_1000000.out
 '''
 
 On Local: 
