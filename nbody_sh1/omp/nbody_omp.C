@@ -101,6 +101,7 @@ typedef double  real;                      // "real" as a general name for the
                                            // standard floating-point data type
 
 const int NDIM = 3;                        // number of spatial dimensions
+const real VERY_LARGE_NUMBER = 1e300;
 
 void correct_step(real pos[][NDIM], real vel[][NDIM], 
                   const real acc[][NDIM], const real jerk[][NDIM],
@@ -550,7 +551,7 @@ void get_acc_jerk_pot_coll(const real mass[], const real pos[][NDIM],
     for (int k = 0; k < NDIM ; k++)
         acc[bodyID][k] = jerk[bodyID][k] = 0;
     epot = 0;
-    const real VERY_LARGE_NUMBER = 1e300;
+    //const real VERY_LARGE_NUMBER = 1e300;
     real coll_time_q = VERY_LARGE_NUMBER;      // collision time to 4th power
     real coll_est_q;                           // collision time scale estimate
                                                // to 4th power (quartic)
