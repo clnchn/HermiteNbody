@@ -449,7 +449,7 @@ void evolve_step(const real mass[], real pos[][NDIM], real vel[][NDIM],
 
     
     //celene: parallel this 3 functions
-    #pragma omp parallel for //num_threads(32)
+    //#pragma omp parallel for //num_threads(32)
     for(int i = 0; i < n; i++){
         predict_step(pos, vel, acc, jerk, i, dt);
         get_acc_jerk_pot_coll(mass, pos, vel, acc, jerk, n, i, epot, coll_time);
